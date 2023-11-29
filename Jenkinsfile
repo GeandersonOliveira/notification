@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'jenkins/jenkins:latest'
+            args '-v /usr/bin/docker:/usr/bin/docker'
+        }
+    }
 
     stages {
         stage('Clonar Repositório') {
