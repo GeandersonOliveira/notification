@@ -35,7 +35,7 @@ pipeline {
 
                 // Executar o contêiner com a nova imagem no Docker host
                 script {
-                    sh 'docker run -d -p 8083:8080 --name notification notification:latest'
+                    sh 'docker run -d -p 8083:8083 --name notification notification:latest'
                 }
             }
         }
