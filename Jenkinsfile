@@ -11,7 +11,8 @@ pipeline {
         stage('Build Maven') {
             steps {
                 script {
-                    sh 'mvn clean package'
+                    // Use o comando mvn do Windows, ajuste o caminho conforme necessário
+                    bat 'mvn clean package'
                 }
             }
         }
@@ -19,8 +20,8 @@ pipeline {
         stage('Construir Imagem Docker') {
             steps {
                 script {
-                    // Use o caminho absoluto para o executável do Docker
-                    sh '/mnt/wsl/docker-desktop/cli-tools/usr/bin/docker build -t listener-api:latest .'
+                    // Use o comando docker do Windows para construir a imagem
+                    bat 'docker build -t listener-api:latest .'
                 }
             }
         }
@@ -29,13 +30,13 @@ pipeline {
             steps {
                 // Parar e remover um contêiner existente no Docker host
                 script {
-                    sh '/usr/bin/docker stop listener-api || true'
-                    sh '/usr/bin/docker rm listener-api || true'
+                    bat 'docker stop listener-api || true'
+                    bat 'docker rm listener-api || true'
                 }
 
                 // Executar o contêiner com a nova imagem no Docker host
                 script {
-                    sh '/usr/bin/docker run -d -p 8083:8083 --name listener-api -v /var/run/docker.sock:/var/run/docker.sock listener-api:latest'
+                    bat 'docker run -d -p 8083:8083 --name listener-api listener-api:latest'
                 }
             }
         }
@@ -51,4 +52,3 @@ pipeline {
         }
     }
 }
-
