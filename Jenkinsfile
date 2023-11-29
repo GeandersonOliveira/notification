@@ -16,23 +16,11 @@ pipeline {
             }
         }
 
-        stage('Verificar Ambiente') {
-            steps {
-                script {
-                    // Imprimir informações sobre o ambiente
-                    sh 'echo "===== Informações do Ambiente ====="'
-                    sh 'docker --version'
-                    sh 'docker info'
-                    sh 'echo "===================================="'
-                }
-            }
-        }
-
         stage('Construir Imagem Docker') {
             steps {
                 script {
-                    // Construir a imagem Docker
-                    sh 'docker build -t listener-api:latest .'
+                    // Usar o cliente Docker JNLP para construir a imagem
+                    docker.build("listener-api:latest", ".")
                 }
             }
         }
