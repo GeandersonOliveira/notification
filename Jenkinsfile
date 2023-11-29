@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'jenkins/jenkins:latest'
-            args '-v /usr/bin/docker:/usr/bin/docker'
-        }
-    }
+    agent any
 
     stages {
         stage('Clonar Repositório') {
@@ -25,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Usar o cliente Docker JNLP para construir a imagem
-                    docker.build("listener-api:latest", ".")
+                    sh 'docker.build("listener-api:latest", ".")'
                 }
             }
         }
