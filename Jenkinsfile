@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Use o caminho absoluto para o executável do Docker
-                    sh '/usr/bin/docker build -t listener-api:latest .'
+                    sh '/mnt/wsl/docker-desktop/cli-tools/usr/bin/docker build -t listener-api:latest .'
                 }
             }
         }
