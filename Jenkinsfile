@@ -63,11 +63,11 @@ pipeline {
     }
 }
         
-        stage('Testes de Integração') {
+        stage('Testes de Integraçao') {
             steps {
                 script {
                     // Comandos para executar testes de integração com MYSQL, RABBITMQ, REDIS, Keyclock
-                     echo 'executar testes de integração'
+                     echo 'executar testes de integraçao'
                 }
             }
         }
