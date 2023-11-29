@@ -27,19 +27,20 @@ pipeline {
         }
 
         stage('Deploy no Docker Host') {
-            steps {
-                // Parar e remover um contêiner existente no Docker host
-                script {
-                    bat 'docker stop listener-api || true'
-                    bat 'docker rm listener-api || true'
-                }
-
-                // Executar o contêiner com a nova imagem no Docker host
-                script {
-                    bat 'docker run -d -p 8083:8083 --name listener-api listener-api:latest'
-                }
-            }
+    steps {
+        // Parar e remover um contêiner existente no Docker host
+        script {
+            bat 'docker stop listener-api 2>NUL || exit 0' // Suprime a mensagem de erro se o contêiner não existir
+            bat 'docker rm listener-api 2>NUL || exit 0'   // Suprime a mensagem de erro se o contêiner não existir
         }
+
+        // Executar o contêiner com a nova imagem no Docker host
+        script {
+            bat 'docker run -d -p 8083:8083 --name listener-api listener-api:latest'
+        }
+    }
+}
+
     }
 
     post {
