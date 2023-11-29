@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Usar o cliente Docker JNLP para construir a imagem
-                    sh 'docker.build("listener-api:latest", ".")'
+                    sh 'docker build -t listener-api:latest .'
                 }
             }
         }
