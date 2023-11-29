@@ -8,11 +8,33 @@ pipeline {
             }
         }
 
+         
+
+        stage('Sonar') {
+            steps {
+                script {
+                    // Comandos para analise do sonar
+                    echo 'Configurar Sonar'
+                    
+                }
+            }
+        }
+
         stage('Build Maven') {
             steps {
                 script {
                     // Use o comando mvn do Windows, ajuste o caminho conforme necessário
                     bat 'mvn clean package'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    // Comandos para executar testes (por exemplo, JUnit)
+                    echo 'Execução dos Testes da app (sh mvn test)'
+                    
                 }
             }
         }
@@ -40,6 +62,15 @@ pipeline {
         }
     }
 }
+        
+        stage('Testes de Integração') {
+            steps {
+                script {
+                    // Comandos para executar testes de integração com MYSQL, RABBITMQ, REDIS, Keyclock
+                     echo 'executar testes de integração'
+                }
+            }
+        }
 
     }
 
