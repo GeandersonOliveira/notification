@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Clonar Repositório') {
+        stage('Clonar Repositorio') {
             steps {
                 git 'https://github.com/GeandersonOliveira/notification.git'
             }
