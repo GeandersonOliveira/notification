@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     // Construir a imagem Docker
-                    dockerImage = docker.build('notification:latest', '.')
+                    sh 'docker build -t notification:latest .'
                 }
             }
         }
