@@ -13,7 +13,7 @@ pipeline {
             steps {
                 // Instalar Maven
                 script {
-                    sh 'apt-get update && apt-get install -y maven'
+                    sh 'sudo apt-get update && apt-get install -y maven'
                 }
             }
         }
