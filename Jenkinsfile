@@ -4,15 +4,12 @@ pipeline {
     stages {
         stage('Clonar Repositório') {
             steps {
-                // Clonar o repositório do GitHub
                 git 'https://github.com/GeandersonOliveira/notification.git'
             }
         }
 
-
         stage('Build Maven') {
             steps {
-                // Construir o projeto Maven
                 script {
                     sh 'mvn clean package'
                 }
@@ -21,24 +18,24 @@ pipeline {
 
         stage('Construir Imagem Docker') {
             steps {
-                // Construir a imagem Docker
                 script {
-                    dockerImage = docker.build('notificacao:latest', '.')
+                    // Construir a imagem Docker
+                    dockerImage = docker.build('notification:latest', '.')
                 }
             }
         }
 
-        stage('Deploy no Docker Local') {
+        stage('Deploy no Docker Host') {
             steps {
-                // Parar e remover um contêiner existente
+                // Parar e remover um contêiner existente no Docker host
                 script {
-                    docker.stop('notificacao') || true
-                    docker.remove('notificacao') || true
+                    sh 'docker stop notification || true'
+                    sh 'docker rm notification || true'
                 }
 
-                // Executar o contêiner com a nova imagem
+                // Executar o contêiner com a nova imagem no Docker host
                 script {
-                    docker.run('-p 8083:8083 --name notificacao notificacao:latest')
+                    sh 'docker run -d -p 8083:8080 --name notification notification:latest'
                 }
             }
         }
