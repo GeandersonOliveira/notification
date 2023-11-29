@@ -9,14 +9,6 @@ pipeline {
             }
         }
 
-        stage('Instalar Maven') {
-            steps {
-                // Instalar Maven
-                script {
-                    sh 'sudo apt-get update && apt-get install -y maven'
-                }
-            }
-        }
 
         stage('Build Maven') {
             steps {
