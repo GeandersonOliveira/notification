@@ -5,7 +5,7 @@ pipeline {
         stage('Clonar Repositório') {
             steps {
                 // Clonar o repositório do GitHub
-                git 'https://github.com/seu-usuario/seu-repositorio.git'
+                git 'https://github.com/GeandersonOliveira/notification.git'
             }
         }
 
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 // Construir a imagem Docker
                 script {
-                    dockerImage = docker.build('sua-api-imagem:latest', '.')
+                    dockerImage = docker.build('notificacao:latest', '.')
                 }
             }
         }
@@ -40,13 +40,13 @@ pipeline {
             steps {
                 // Parar e remover um contêiner existente
                 script {
-                    docker.stop('sua-api-container') || true
-                    docker.remove('sua-api-container') || true
+                    docker.stop('notificacao') || true
+                    docker.remove('notificacao') || true
                 }
 
                 // Executar o contêiner com a nova imagem
                 script {
-                    docker.run('-p 8080:80 --name sua-api-container sua-api-imagem:latest')
+                    docker.run('-p 8083:8083 --name notificacao notificacao:latest')
                 }
             }
         }
