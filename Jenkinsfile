@@ -19,8 +19,8 @@ pipeline {
         stage('Construir Imagem Docker') {
             steps {
                 script {
-                    // Usar o cliente Docker JNLP para construir a imagem
-                    sh 'docker build -t listener-api:latest .'
+                    // Use o caminho absoluto para o executável do Docker
+                    sh '/usr/bin/docker build -t listener-api:latest .'
                 }
             }
         }
@@ -29,13 +29,13 @@ pipeline {
             steps {
                 // Parar e remover um contêiner existente no Docker host
                 script {
-                    sh 'docker stop listener-api || true'
-                    sh 'docker rm listener-api || true'
+                    sh '/usr/bin/docker stop listener-api || true'
+                    sh '/usr/bin/docker rm listener-api || true'
                 }
 
                 // Executar o contêiner com a nova imagem no Docker host
                 script {
-                    sh 'docker run -d -p 8083:8083 --name listener-api -v /var/run/docker.sock:/var/run/docker.sock listener-api:latest'
+                    sh '/usr/bin/docker run -d -p 8083:8083 --name listener-api -v /var/run/docker.sock:/var/run/docker.sock listener-api:latest'
                 }
             }
         }
@@ -51,3 +51,4 @@ pipeline {
         }
     }
 }
+
